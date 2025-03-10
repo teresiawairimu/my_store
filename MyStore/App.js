@@ -1,33 +1,45 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer} from '@react-navigation/native';
-import { createNativeStackNavigator} from '@react-navigation/native-stack';
-import ItemTypes from './screens/ItemTypes';
-import ItemList from './screens/ItemList';
-import ItemDetails from './screens/ItemDetails';
-import AddItem from './screens/AddItem';
-import EditItem from './screens/EditItem';
+import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer} from "@react-navigation/native";
+import { createNativeStackNavigator} from "@react-navigation/native-stack";
+import { ItemProvider } from "./Context/StoreContext";
+import ItemTypes from "./Screens/ItemTypes";
+import ItemList from "./Screens/ItemList";
+import ItemDetails from "./Screens/ItemDetails";
+import AddItem from "./Screens/AddItem";
+import EditItem from "./Screens/EditItem";
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='ItemCategories'>
+      <Stack.Navigator initialRouteName="ItemCategories">
         <Stack.Screen 
-          name= 'ItemCategories' 
+          name= "ItemCategories" 
           component={ItemTypes}
           options={{
-            title: 'Types of Toys'
+            title: "Types of Toys"
           }} 
         />
-        <Stack.Screen name= 'List' component={ItemList} />
-        <Stack.Screen name= 'Details' component={ItemDetails} />
-        <Stack.Screen name= 'Add' component={AddItem} />
-        <Stack.Screen name= 'Edit' component={EditItem} />
+        <Stack.Screen 
+          name= "List"
+          component={ItemList} 
+        />
+        <Stack.Screen name= "Details" component={ItemDetails} />
+        <Stack.Screen name= "Add" component={AddItem} />
+        <Stack.Screen name= "Edit" component={EditItem} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+export default () => {
+  return (
+    <ItemProvider>
+      <App />
+    </ItemProvider>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

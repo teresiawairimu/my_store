@@ -1,6 +1,10 @@
-import { StyleSheet, Text, View, FlatList, TouchableOpacity} from "react-native";
+import { createContext } from "react";
 
-const ToysList = [
+const ItemContext = createContext();
+
+const ItemTypes = ['Action Figures', 'Dolls', 'Plush Toys', 'Vehicles']
+
+const ItemList = [
   {id: 1, category: 'Action Figures', name: 'Spider-Man', price: 20, desc: '', photo: ''},
   {id: 2, category: 'Action Figures', name: 'Darth Vader', price: 30, desc: '', photo: ''},
   {id: 3, category: 'Action Figures', name: 'Batman', price: 28, desc: '', photo: ''},
@@ -18,25 +22,16 @@ const ToysList = [
   {id: 15, category: 'Vehicles', name: 'Thomas & Friends Train Set', price: 30, desc: '', photo: ''},
   {id: 16, category: 'Vehicles', name: 'Die-CAst Airplane Model', price: 25, desc: '', photo: ''},
 ]
-const ItemList = ({navigation, route}) => {
-  const selectedCategory = route.params.toyCategory
-  const categoryToys = ToysList.filter((toy) => toy.category === selectedCategory)
-  console.log(categoryToys)
-  return (
-    <FlatList
-      data={categoryToys}
-      renderItem={({item}) => {
-        console.log(item)
-        return(
-          <TouchableOpacity onPress={() => {navigation.navigate('Details')}}>
-            <Text>{item.name}</Text>
-          </TouchableOpacity>
-        )
-      }}
-      keyExtractor={(toy) => toy.id.toString()}
 
-    />
+
+export const ItemProvider= (props) => {
+  console.log(props);
+
+  return (
+    <ItemContext.Provider value={[ItemTypes, ItemList]}>
+      {props.children}
+    </ItemContext.Provider>
   );
 };
 
-export default ItemList;
+export default ItemContext;
