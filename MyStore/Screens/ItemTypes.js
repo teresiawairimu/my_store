@@ -4,16 +4,18 @@ import { useContext } from "react";
 
 const ItemTypes = ({navigation, route}) => {
 
-  const [ITypes, IList] = useContext(ItemContext);
+  const {Categories} = useContext(ItemContext);
 
   return (
     <FlatList
-    data={ITypes}
+    data={Categories}
     renderItem={(element) => {
-      console.log(element);
+      //console.log(element);
       return (
         <TouchableOpacity onPress={() => {navigation.navigate("List", {toyCategory: element.item})}}>
-          <Text>{element.item}</Text>
+          <View style={styles.item}>
+            <Text>{element.item}</Text>
+          </View>
         </TouchableOpacity>
       )
     }}
@@ -21,5 +23,12 @@ const ItemTypes = ({navigation, route}) => {
     />
   );
 };
+
+
+const styles = StyleSheet.create({
+  item: {
+    padding: 10
+  }
+});
 
 export default ItemTypes;
